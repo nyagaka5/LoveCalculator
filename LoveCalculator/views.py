@@ -5,23 +5,23 @@ from .models import LoveResult
 
 @csrf_exempt
 def home(request):
-    # Scenario 1: The user clicked "Calculate Love %" (Form Submitted)
+    
     if request.method == "POST":
         your_name = request.POST.get("your_name", "").strip()
         crush_name = request.POST.get("crush_name", "").strip()
 
         if your_name and crush_name:
-            # Generate a random love score percentage
+           
             score = random.randint(40, 100)
 
-            # Save the calculation directly into your PostgreSQL database
+
             result = LoveResult.objects.create(
                 your_name=your_name,
                 crush_name=crush_name,
                 score=score
             )
 
-            # Display the result screen to the user
+           
             return HttpResponse(f"""
                 <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; margin-top: 100px; color: #333;">
                     <div style="display: inline-block; background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-top: 5px solid #e91e63;">
@@ -42,7 +42,7 @@ def home(request):
                 </div>
             """)
 
-    # Scenario 2: The user just landed on the page (Show Input Form)
+    
     return HttpResponse("""
         <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; margin-top: 100px; color: #333;">
             <div style="display: inline-block; background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: left; max-width: 350px; width: 100%;">
